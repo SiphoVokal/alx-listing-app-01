@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { PROPERTYLISTINGSAMPLE } from "@/constants";
 
 const filters = ["Top Villa", "Self Checkin", "Pet Friendly", "Beachfront", "Mountain View"];
@@ -31,15 +32,23 @@ const Home: React.FC = () => {
       {/* Property Listings */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {PROPERTYLISTINGSAMPLE.map((property) => (
-          <div key={property.name} className="border rounded shadow hover:shadow-lg">
-            <img src={property.image} alt={property.name} className="w-full h-48 object-cover rounded-t" />
-            <div className="p-4">
-              <h2 className="font-semibold text-lg">{property.name}</h2>
-              <p className="text-gray-600">{property.address.city}, {property.address.country}</p>
-              <p className="text-blue-600 font-bold mt-2">${property.price}/night</p>
-              <p className="text-sm text-yellow-500">⭐ {property.rating}</p>
+          <Link key={property.name} href={`/property/${encodeURIComponent(property.name)}`}>
+            <div className="border rounded shadow hover:shadow-lg cursor-pointer">
+              <img
+                src={property.image}
+                alt={property.name}
+                className="w-full h-48 object-cover rounded-t"
+              />
+              <div className="p-4">
+                <h2 className="font-semibold text-lg">{property.name}</h2>
+                <p className="text-gray-600">
+                  {property.address.city}, {property.address.country}
+                </p>
+                <p className="text-blue-600 font-bold mt-2">ZAR {property.price}/night</p>
+                <p className="text-sm text-yellow-500">⭐ {property.rating}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </section>
     </div>
